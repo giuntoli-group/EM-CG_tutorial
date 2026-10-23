@@ -6,9 +6,10 @@ atom_style 	    full
 boundary 	    p p p
 
 # Variables
-variable 	    N equal ???    # number of particles   # !!!!!!!!!!!!!!!!!!!!!!!!!!
-variable 	    eta equal ???   # packing fraction     # !!!!!!!!!!!!!!!!!!!!!!!!!!
+variable 	    N equal ${N}    # number of particles   # !!!!!!!!!!!!!!!!!!!!!!!!!!
+variable 	    eta equal ${eta}   # packing fraction     # !!!!!!!!!!!!!!!!!!!!!!!!!!
 variable 	    temp equal 1.0  # temperature
+variable      epsilon equal ${e} #interaction strength
 
 variable 	    sigma equal 1.0
 variable 	    particle_volume equal (4.0/3.0)*PI*(0.5*${sigma})^3  
@@ -23,7 +24,7 @@ create_atoms	    1 random ${N} ${rand_seed} box
 mass		    1 1.0
 
 pair_style	    lj/cut 2.5
-pair_coeff	    1 1 ??? 1.0 2.5                    # !!!!!!!!!!!!!!!!!!!!!!!!!
+pair_coeff	    1 1 ${e} 1.0 2.5                    # !!!!!!!!!!!!!!!!!!!!!!!!!
 
 velocity	    all create ${temp} ${rand_seed}
 
@@ -39,8 +40,8 @@ fix 		    2 all langevin ${temp} ${temp} 0.5 ${rand_seed} zero yes
 dump                dump_lin all custom 100000 traj_lin.dat id type xu yu zu vx vy vz fx fy fz
 dump_modify         dump_lin sort id
 
-variable 	    step equal logfreq(1,9,10)
-dump 		    dump_log all custom 1 traj_log.dat id type xu yu zu vx vy vz fx fy fz
+variable 	          step equal logfreq(1,9,10)
+dump 		            dump_log all custom 1 traj_log.dat id type xu yu zu vx vy vz fx fy fz
 dump_modify         dump_log every v_step first yes
 dump_modify         dump_log sort id
 
@@ -48,6 +49,6 @@ thermo		    100000
 thermo_style        custom step time temp vol press ebond epair eangle ke etotal enthalpy
 thermo_modify       line yaml format none
 
-run		    10000000
-write_data	    final.data
+run		    1000000
+write_data	        final.data
 write_restart       final.bin
