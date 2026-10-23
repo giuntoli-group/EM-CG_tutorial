@@ -3,7 +3,7 @@ units           metal
 atom_style      full
 boundary        p p p
 #--------------Read Atoms-----------------------------------
-read_data c60_pair_wo_bonds.data
+read_data assignment2/c60_pair_wo_bonds.data
 mass * 12.0
 group           c60a id <= 60
 group           c60b id > 60
