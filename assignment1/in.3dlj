@@ -6,8 +6,8 @@ atom_style 	    full
 boundary 	    p p p
 
 # Variables
-variable 	    N equal ${N}    # number of particles   # !!!!!!!!!!!!!!!!!!!!!!!!!!
-variable 	    eta equal ${eta}   # packing fraction     # !!!!!!!!!!!!!!!!!!!!!!!!!!
+variable 	    N equal ${num_par}    # number of particles   # !!!!!!!!!!!!!!!!!!!!!!!!!!
+variable 	    eta equal ${pack_frac}   # packing fraction     # !!!!!!!!!!!!!!!!!!!!!!!!!!
 variable 	    temp equal 1.0  # temperature
 variable      epsilon equal ${e} #interaction strength
 
