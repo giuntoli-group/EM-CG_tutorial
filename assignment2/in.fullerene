@@ -48,6 +48,8 @@ variable        large_shift equal 0.3     # moves the fullerene molecules toward
 displace_atoms  c60a move ${large_shift} 0 0 units box 
 displace_atoms  c60b move -${large_shift} 0 0 units box 
 
+shell           mkdir lmp_data
+
 dump            2 all custom 500 lmp_data/dump.data${a} id type xu yu zu fx fy fz
 dump_modify     2 sort id
 run 5000
