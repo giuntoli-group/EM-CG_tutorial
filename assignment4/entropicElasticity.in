@@ -1,0 +1,36 @@
+#Lennard-Jones chain
+
+units               lj
+dimension           3
+atom_style          full
+boundary            p p p
+
+neighbor            0.8 bin
+neigh_modify        every 20 delay 0 check no
+
+read_data           chain.data
+group               mobile type 1
+group               pinned type 2
+
+pair_style          lj/cut 1.12
+pair_coeff          * * 1.0 1.0 1.12
+bond_style          fene
+bond_coeff          1 30.0 1.5 1.0 1.0
+special_bonds       fene
+
+variable            Temp equal 0.1
+velocity            all create ${Temp} 338731
+
+fix                 nvt1 mobile nvt temp ${Temp} ${Temp} 0.5
+
+dump                mydump all custom 1000 traj.dat id type xu yu zu vx vy vz fx fy fz
+dump_modify         mydump sort id
+
+thermo              1000
+thermo_style        custom step time temp vol press ebond epair eangle ke etotal enthalpy
+
+variable            pullForce equal fx[1]-fx[30]
+fix                 printForce all ave/time 10 10 100 v_pullForce file pullForce_${Temp}.txt
+
+run                 100000
+write_data          final.data
