@@ -33,7 +33,7 @@ minimize 	      1.0e-8 1.0e-8 50000 50000
 
 #######  equilibration  ##########
 fix     	      59 all nvt  temp ${TF} ${TF} 50
-run             100000
+run             10000
 unfix           59
 
 write_data      equilibrated.data
@@ -44,7 +44,7 @@ dump            55 all dcd 100 unwrapped_traj.dcd
 dump_modify     55 unwrap yes
 
 fix     	      57 all nvt  temp ${TF} ${TF} 50
-run             100000
+run             10000
 unfix           57
 
 print "ALL DONE"
