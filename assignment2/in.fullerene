@@ -29,7 +29,7 @@ fix 2 all nvt temp 300.0 300.0 100.0
 timestep            0.0005
 run 10000
 reset_timestep 0
-thermo_style custom step time temp press pe ke etotal lx 
+thermo_style custom step time temp press pe ke etotal c_comA[1] c_comA[2] c_comA[3] c_comB[1] c_comB[2] c_comB[3] 
 thermo_modify   line yaml format none
 dump 1 all custom 100 traj.dat id x y z vx vy vz c_3 c_4[1] c_4[2] c_4[3]
 run 10000
